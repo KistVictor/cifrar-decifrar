@@ -201,78 +201,79 @@ function hillDecrypt(ciphertext, keyMatrix) {
   return output;
 }
 
-$(function() {
-  $('#encrypt').click(function() {
-    var cipher = $('#cipher').val();
-    var plaintext = $('#plaintext').val();
-    var key = $('#key').val();
-    console.log("encrypt", key);
-    var output = '';
-    switch (cipher) {
-      case 'cesar':
-        console.log("cesar");
-        output = cesarEncrypt(plaintext, key);
-        break;
-      case 'vernam':
-        console.log("vernam");
-        output = vernamEncrypt(plaintext, key);
-        break;
-      case 'vigenere':
-        console.log("vigenere");
-        output = vigenereEncrypt(plaintext, key);
-        break;
-      case 'playfair':
-        output = playfairEncrypt(plaintext, key);
-        break;
-      case 'hill':
-        var keyMatrix = [
-          [parseInt(key[0]), parseInt(key[1])],
-          [parseInt(key[2]), parseInt(key[3])],
-        ];
-        output = hillEncrypt(plaintext, keyMatrix);
-        break;
-      case 'rsa':
-        console.log($('#pubkey').val())
-        var encrypt = new JSEncrypt();
-        encrypt.setPublicKey($('#pubkey').val());
-        output = encrypt.encrypt(plaintext);
-        break;
-    }
-    $('#output').val(output);
-  });
+function encrypt() {
+  console.log(document.getElementById("cipher").value);
+  var cipher = document.getElementById("cipher").value;
+  var plaintext = document.getElementById("plaintext").value;
+  var key = document.getElementById("key").value;
+  console.log("encrypt", key);
+  var output = '';
+  switch (cipher) {
+    case 'cesar':
+      console.log("cesar");
+      output = cesarEncrypt(plaintext, key);
+      break;
+    case 'vernam':
+      console.log("vernam");
+      output = vernamEncrypt(plaintext, key);
+      break;
+    case 'vigenere':
+      console.log("vigenere");
+      output = vigenereEncrypt(plaintext, key);
+      break;
+    case 'playfair':
+      output = playfairEncrypt(plaintext, key);
+      break;
+    case 'hill':
+      var keyMatrix = [
+        [parseInt(key[0]), parseInt(key[1])],
+        [parseInt(key[2]), parseInt(key[3])],
+      ];
+      output = hillEncrypt(plaintext, keyMatrix);
+      break;
+    case 'rsa':
+      var encrypt = new JSEncrypt();
+      encrypt.setPublicKey(document.getElementById("pubkey").value);
+      output = encrypt.encrypt(plaintext);
+      break;
+  }
+  document.getElementById("output").value = output;
+}
 
-  $('#decrypt').click(function() {
-    var cipher = $('#cipher').val();
-    var ciphertext = $('#output').val();
-    var key = $('#key').val();
-    console.log("decrypt", key);
-    var output = '';
-    switch (cipher) {
-      case 'cesar':
-        output = cesarDecrypt(ciphertext, key);
-        break;
-      case 'vernam':
-        output = vernamDecrypt(ciphertext, key);
-        break;
-      case 'vigenere':
-        output = vigenereDecrypt(ciphertext, key);
-        break;
-      case 'playfair':
-        output = playfairDecrypt(ciphertext, key);
-        break;
-      case 'hill':
-        var keyMatrix = [
-          [parseInt(key[0]), parseInt(key[1])],
-          [parseInt(key[2]), parseInt(key[3])],
-        ];
-        output = hillDecrypt(ciphertext, keyMatrix);
-        break;
-      case 'rsa':
-        var decrypt = new JSEncrypt();
-        decrypt.setPrivateKey($('#privkey').val());
-        output = decrypt.decrypt(ciphertext);
-        break;
-    }
-    $('#plaintext').val(output);
-  });
-});
+function decrypt() {
+  var cipher = document.getElementById("cipher").value;
+  var ciphertext = document.getElementById("output").value;
+  var key = document.getElementById("key").value;
+  console.log("decrypt", key);
+  var output = '';
+  switch (cipher) {
+    case 'cesar':
+      output = cesarDecrypt(ciphertext, key);
+      break;
+    case 'vernam':
+      output = vernamDecrypt(ciphertext, key);
+      break;
+    case 'vigenere':
+      output = vigenereDecrypt(ciphertext, key);
+      break;
+    case 'playfair':
+      output = playfairDecrypt(ciphertext, key);
+      break;
+    case 'hill':
+      var keyMatrix = [
+        [parseInt(key[0]), parseInt(key[1])],
+        [parseInt(key[2]), parseInt(key[3])],
+      ];
+      output = hillDecrypt(ciphertext, keyMatrix);
+      break;
+    case 'rsa':
+      var decrypt = new JSEncrypt();
+      decrypt.setPublicKey(document.getElementById("privkey").value);
+      output = decrypt.decrypt(ciphertext);
+      break;
+  }
+  document.getElementById("plaintext").value = output;
+}
+
+document.getElementById("encrypt").addEventListener("click", encrypt);
+document.getElementById("decrypt").addEventListener("click", decrypt);
