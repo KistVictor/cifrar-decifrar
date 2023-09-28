@@ -1,0 +1,42 @@
+/* Reset some default styles in browsers */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Give a little space around the entire page */
+body {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+/* Style labels with some space and bold font */
+label {
+  display: block;
+  margin: 20px 0 10px;
+  font-weight: bold;
+}
+
+/* Style textareas and input with some padding, border and rounded corners */
+textarea, input, select {
+  width: calc(100% - 22px);
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* Add background color to buttons and change cursor on hover */
+input[type=button] {
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+input[type=button]:hover {
+  background-color: #45a049;
+}
+
